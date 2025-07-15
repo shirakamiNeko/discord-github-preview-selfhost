@@ -383,7 +383,7 @@
         <div class="section">
           <span class="label">Preview</span>
           <div class="preview">
-            <img id="previewImage" src="/api/user/879917497959219250" alt="Discord Profile Preview">
+            <img id="previewImage" src="/discord-api/user/879917497959219250" alt="Discord Profile Preview">
           </div>
         </div>
         
@@ -485,7 +485,7 @@
         generateButton.disabled = true;
 
         // Build URL
-        let url = `/api/user/${userId}`;
+        let url = `/discord-api/user/${userId}`;
         const params = new URLSearchParams();
 
         if (enableAboutMeCheckbox.checked && aboutMeTextarea.value) {
@@ -539,7 +539,7 @@
         previewImage.style.opacity = '0.5';
 
         // First fetch the username
-        fetch(`/api/username/${userId}`)
+        fetch(`/discord-api/username/${userId}`)
           .then(response => {
             if (!response.ok) throw new Error('Failed to fetch username');
             return response.json();
@@ -662,17 +662,17 @@
       });
       
       // Initialize preview URL with default format for initial ID
-      fetch(`/api/username/${userIdInput.value.trim()}`)
+      fetch(`/discord-api/username/${userIdInput.value.trim()}`)
         .then(response => response.json())
         .then(data => {
-          const initialUrl = `/api/user/${userIdInput.value.trim()}`;
+          const initialUrl = `/discord-api/user/${userIdInput.value.trim()}`;
           const fullUrl = window.location.origin + initialUrl;
           previewUrlDisplay.textContent = `[![${data.username}'s Discord status](${fullUrl})](https://github.com/TetraTsunami/discord-github-preview)`;
           rawUrlDisplay.textContent = fullUrl;
         })
         .catch(error => {
           console.error('Error fetching initial username:', error);
-          const initialUrl = `/api/user/${userIdInput.value.trim()}`;
+          const initialUrl = `/discord-api/user/${userIdInput.value.trim()}`;
           previewUrlDisplay.textContent = window.location.origin + initialUrl;
           rawUrlDisplay.textContent = window.location.origin + initialUrl;
         });
