@@ -19,4 +19,4 @@ export const GG_SANS_FONT_FACE = `
   src: url('data:font/woff2;charset=utf-8;base64,${ggSansBoldBase64}') format('woff2');
 }
 `;
-export const fontFamily = "GG Sans,sans-serif";
+export const fontFamily = "GG Sans, 'Microsoft JhengHei', 'Microsoft YaHei', 'Noto Sans SC', sans-serif";
