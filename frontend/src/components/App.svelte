@@ -48,19 +48,19 @@
     Record<Layout, { src: string; markdown: string; rawUrl: string; html: string }>
   >({
     standard: {
-      src: initial.defaultUserId ? `/api/user/${initial.defaultUserId}` : "",
+      src: initial.defaultUserId ? `/discord-profile-preview/user/${initial.defaultUserId}` : "",
       markdown: "",
       rawUrl: "",
       html: "",
     },
     compact: {
-      src: initial.defaultUserId ? `/api/user/${initial.defaultUserId}?layout=compact` : "",
+      src: initial.defaultUserId ? `/discord-profile-preview/user/${initial.defaultUserId}?layout=compact` : "",
       markdown: "",
       rawUrl: "",
       html: "",
     },
     badge: {
-      src: initial.defaultUserId ? `/api/user/${initial.defaultUserId}?layout=badge` : "",
+      src: initial.defaultUserId ? `/discord-profile-preview/user/${initial.defaultUserId}?layout=badge` : "",
       markdown: "",
       rawUrl: "",
       html: "",
@@ -82,9 +82,9 @@
     if (cfg.defaultUserId && !userId) userId = cfg.defaultUserId;
     if (cfg.inviteUrl) inviteUrl = cfg.inviteUrl;
     if (cfg.defaultUserId && !previews.standard.src) {
-      previews.standard.src = `/api/user/${cfg.defaultUserId}`;
-      previews.compact.src = `/api/user/${cfg.defaultUserId}?layout=compact`;
-      previews.badge.src = `/api/user/${cfg.defaultUserId}?layout=badge`;
+      previews.standard.src = `/discord-profile-preview/user/${cfg.defaultUserId}`;
+      previews.compact.src = `/discord-profile-preview/user/${cfg.defaultUserId}?layout=compact`;
+      previews.badge.src = `/discord-profile-preview/user/${cfg.defaultUserId}?layout=badge`;
     }
   });
 
@@ -128,7 +128,7 @@
     try {
       let username = usernameCache.username;
       if (usernameCache.id !== userId) {
-        const response = await fetch(`/api/username/${userId}`);
+        const response = await fetch(`/discord-profile-preview/username/${userId}`);
         if (!response.ok) throw new Error("Failed to fetch username");
         const data = await response.json();
         username = data.username;
@@ -195,7 +195,7 @@
     lookupLoading = true;
     lookupError = "";
     try {
-      const response = await fetch(`/api/lookup/${encodeURIComponent(lookupUsername)}`);
+      const response = await fetch(`/discord-profile-preview/lookup/${encodeURIComponent(lookupUsername)}`);
       const data = await response.json();
       if (!response.ok) {
         lookupError = data.error || "User not found";

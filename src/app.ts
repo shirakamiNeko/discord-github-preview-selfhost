@@ -63,15 +63,15 @@ app.use(express.static("./public"));
 
 const idFromParams = (req: express.Request) => req.params.id ?? null;
 
-app.get("/api/ping", discordSelf);
-app.get("/api/user/:id", withResponseCache(discordUser, { userIdFor: idFromParams }));
-app.get("/api/username/:id", withResponseCache(discordIDToUsername, { userIdFor: idFromParams }));
+app.get("/discord-profile-preview/ping", discordSelf);
+app.get("/discord-profile-preview/user/:id", withResponseCache(discordUser, { userIdFor: idFromParams }));
+app.get("/discord-profile-preview/username/:id", withResponseCache(discordIDToUsername, { userIdFor: idFromParams }));
 app.get(
-  "/api/lookup/:username",
+  "/discord-profile-preview/lookup/:username",
   withResponseCache(discordUsernameToID, {
     userIdFor: (req) => resolveUsernameToId(req.params.username),
   })
 );
-app.get("/api/lanyard/:id", withResponseCache(pseudoLanyardImplementation, { userIdFor: idFromParams }));
+app.get("/discord-profile-preview/lanyard/:id", withResponseCache(pseudoLanyardImplementation, { userIdFor: idFromParams }));
 
 export default app;

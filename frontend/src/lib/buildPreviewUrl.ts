@@ -118,7 +118,7 @@ export function buildPreviewUrl(state: PreviewState, layout: Layout = 'standard'
     params.append('layout', layout);
   }
 
-  const base = `/api/user/${state.userId}`;
+  const base = `/discord-profile-preview/user/${state.userId}`;
   const queryString = params.toString();
   return queryString ? `${base}?${queryString}` : base;
 }

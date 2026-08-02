@@ -11,7 +11,7 @@ Discord GitHub Preview is a web application that generates SVG representations o
 ### Application Flow
 1. **Bot Layer** (`src/bot.ts`): Discord.js client that maintains a connection to Discord's gateway and provides user presence data
 2. **Express Server** (`src/server.ts`, `src/app.ts`): HTTP server with caching middleware that serves the web interface and API endpoints
-3. **API Layer** (`src/api/index.ts`): Request handlers that validate parameters, fetch user data, and generate SVG responses
+3. **API Layer** (`src/discord-profile-preview/index.ts`): Request handlers that validate parameters, fetch user data, and generate SVG responses
 4. **Rendering Pipeline** (`src/helpers/card.ts`): React-based SVG rendering system that transforms user data into styled SVG markup
 5. **Component System**: Modular "displayables" that render different aspects of user profiles
 
@@ -66,11 +66,11 @@ The SVG output is self-contained — fonts are inlined as base64 woff2, gradient
 
 Instead, with `pnpm dev` running:
 ```bash
-curl -s "http://localhost:3000/api/user/$DEFAULT_USER_ID?font=8bit&effect=neon&nameColor1=00ffff" > /tmp/card.svg
+curl -s "http://localhost:3000/discord-profile-preview/user/$DEFAULT_USER_ID?font=8bit&effect=neon&nameColor1=00ffff" > /tmp/card.svg
 # Open /tmp/card.svg in any browser, or grep its content:
 grep -oE 'name-grad-|name-neon-|font-family[^;]*' /tmp/card.svg | head
 ```
-The frontend is just a URL builder around `/api/user/:id`; if a parameter works via curl it'll work in the UI too. Only screenshot the svelte page when you're actually verifying the picker UI itself (selection state, layout, the new color preset row, etc.).
+The frontend is just a URL builder around `/discord-profile-preview/user/:id`; if a parameter works via curl it'll work in the UI too. Only screenshot the svelte page when you're actually verifying the picker UI itself (selection state, layout, the new color preset row, etc.).
 
 ### Docker
 ```bash
@@ -88,10 +88,10 @@ docker-compose up     # Run containerized instance (see README for details)
 ### API Caching
 - Development mode: 1 second cache (`NODE_ENV=development`)
 - Production mode: 30 second cache (default)
-- Caching is handled by `apicache` middleware on the `/api/user/:id` and `/api/username/:id` endpoints
+- Caching is handled by `apicache` middleware on the `/discord-profile-preview/user/:id` and `/discord-profile-preview/username/:id` endpoints
 
 ### Parameter Validation
-- URL parameters are validated using Zod v4 schemas in `src/api/index.ts`
+- URL parameters are validated using Zod v4 schemas in `src/discord-profile-preview/index.ts`
 - Theme-specific color requirements are enforced via Zod `.check()` method
 - Hex colors must be provided without `#` prefix and are automatically transformed
 - Invalid parameters return error SVGs with status 400
